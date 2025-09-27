@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Loader2, Sparkles } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
+import { useNFTContract } from "@/hooks/useNFTContract"
 import Confetti from "@/components/Confetti"
 
 interface MintNFTButtonProps {
@@ -32,10 +33,10 @@ interface MintNFTButtonProps {
 export default function MintNFTButton({ disabled = true, scores, prompt }: MintNFTButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [title, setTitle] = useState("")
-  const [isMinting, setIsMinting] = useState(false)
   const [mintingComplete, setMintingComplete] = useState(false)
   const [artPreview, setArtPreview] = useState<string | null>(null)
   const { toast } = useToast()
+  const { mintNFT, isMinting, isConfirmed } = useNFTContract()
 
   // When modal opens, cache the canvas image for preview
   React.useEffect(() => {
@@ -59,8 +60,6 @@ export default function MintNFTButton({ disabled = true, scores, prompt }: MintN
       return
     }
 
-    setIsMinting(true)
-
     try {
       // Get the canvas drawing
       const canvas = document.querySelector("canvas")
@@ -69,39 +68,49 @@ export default function MintNFTButton({ disabled = true, scores, prompt }: MintN
       }
 
       const imageData = canvas.toDataURL("image/png")
-
-      // Create form data
-      const formData = new FormData()
-      formData.append("image", imageData)
-      formData.append("title", title)
-      formData.append("prompt", prompt)
-      formData.append("score", scores.overall.toString())
-
-      // Call the minting API
-      const response = await fetch("/api/nft/mint", {
-        method: "POST",
-        body: formData,
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to mint NFT")
+      
+      // Create a simple metadata URI (in a real app, you'd upload to IPFS)
+      const metadata = {
+        name: title,
+        description: `AI-generated artwork based on prompt: ${prompt}`,
+        image: imageData,
+        attributes: [
+          { trait_type: "Creativity", value: scores.creativity },
+          { trait_type: "Prompt Adherence", value: scores.promptAdherence },
+          { trait_type: "Artistic Quality", value: scores.artisticQuality },
+          { trait_type: "Overall Score", value: scores.overall },
+          { trait_type: "Prompt", value: prompt },
+        ]
       }
 
-      const data = await response.json()
+      const metadataURI = `data:application/json;base64,${btoa(JSON.stringify(metadata))}`
 
-      setMintingComplete(true)
+      // Mint the NFT using the contract
+      await mintNFT(
+        metadataURI,
+        prompt,
+        Math.round(scores.creativity),
+        Math.round(scores.promptAdherence),
+        Math.round(scores.artisticQuality),
+        Math.round(scores.overall),
+        scores.feedback || "No feedback provided"
+      )
 
-      toast({
-        title: "NFT Minted Successfully!",
-        description: `Your artwork "${title}" has been minted as an NFT.`,
-      })
+      // Check if minting was successful
+      if (isConfirmed) {
+        setMintingComplete(true)
+        toast({
+          title: "NFT Minted Successfully!",
+          description: `Your artwork "${title}" has been minted as an NFT.`,
+        })
 
-      // Reset after showing success
-      setTimeout(() => {
-        setMintingComplete(false)
-        setIsOpen(false)
-        setTitle("")
-      }, 3000)
+        // Reset after showing success
+        setTimeout(() => {
+          setMintingComplete(false)
+          setIsOpen(false)
+          setTitle("")
+        }, 3000)
+      }
     } catch (error) {
       console.error("Error minting NFT:", error)
       toast({
@@ -109,7 +118,6 @@ export default function MintNFTButton({ disabled = true, scores, prompt }: MintN
         description: "Failed to mint NFT. Please try again later.",
         variant: "destructive",
       })
-      setIsMinting(false)
     }
   }
 

@@ -1,9 +1,8 @@
-import { getDefaultConfig } from 'wagmi'
+import { createConfig, http } from 'wagmi'
 import { mainnet, polygon, arbitrum, optimism, base, sepolia } from 'wagmi/chains'
-import { http } from 'viem'
 import { injected, metaMask, walletConnect } from 'wagmi/connectors'
 
-export const config = getDefaultConfig({
+export const config = createConfig({
   chains: [mainnet, polygon, arbitrum, optimism, base, sepolia],
   connectors: [
     injected(),
