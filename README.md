@@ -1,205 +1,144 @@
-# 🎨 Vynk - AI doodle Art Platform
+# 🎨 Vynk – Draw to Earn, Meme to Own 🌀
 
-A revolutionary platform that combines AI-generated prompts with digital art creation, AI-powered scoring, and NFT minting on the Ethereum blockchain.
+**Vynk** is an AI-powered creative playground on **EVM** that transforms doodles into NFTs and memes into onchain culture.
+Every day, users receive a quirky drawing prompt, sketch in-browser, and compete for rewards through **AI scoring, leaderboards, NFT minting, and prediction markets**.
+
+---
 
 ## ✨ Features
 
-### 🎯 Core Functionality
-- **AI Prompt Generation**: Get creative, unique drawing prompts powered by Google Gemini
-- **Advanced Drawing Canvas**: Professional-grade drawing tools with multiple brushes and colors
-- **AI Art Scoring**: 4-dimensional evaluation (Creativity, Prompt Adherence, Artistic Quality, Overall)
-- **Interactive NFT Cards**: 3D rotatable NFT cards with joystick control
-- **Blockchain Integration**: Mint your artwork as NFTs on Ethereum Sepolia testnet
-- **Wallet Connection**: Support for MetaMask, WalletConnect, and other popular wallets
+* **Daily Prompts** → AI-generated, meme-worthy challenges (e.g., *“jellyfish DJ in Tokyo”*).
+* **In-Browser Canvas** → Draw directly in the dApp, no tools required.
+* **AI Scoring (Next.js Routes)** → Gemini Vision judges creativity + relevance.
+* **Onchain Leaderboards** → Rankings boosted by token staking multipliers.
+* **NFT Minting** → Top submissions minted into **EVM-native NFTs**.
+* **Prediction Markets** → Bet tokens on leaderboard outcomes.
+* **AI Roasts & Virality** → X (Twitter) bot roasts + spreads art submissions.
 
-### 🛠️ Technical Features
-- **Next.js 15** with App Router and TypeScript
-- **Tailwind CSS** with custom design system
-- **Radix UI** components for accessibility
-- **Wagmi & Viem** for Web3 integration
-- **Google Gemini AI** for prompt generation and scoring
-- **Hardhat** for smart contract development
-- **IPFS-ready** metadata storage
+---
 
-## 🚀 Quick Start
+## 💰 Token Utility
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- MetaMask or compatible wallet
-- Sepolia testnet ETH for gas fees
+* **Staking** → Lock tokens to boost leaderboard multipliers.
+* **Betting** → Onchain wagers on leaderboard outcomes.
+* **Rewards** → Token payouts for winners & viral content.
+* **NFT Minting** → Mint art as **ERC-721 NFTs**.
+* **Governance** → Token holders vote on prompts + upgrades.
 
-### Installation
+---
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/DDgupta07/vynk.git
-cd vynk
-```
+## 🧩 User Journey
 
-2. **Install dependencies**
-```bash
-npm install
-```
+**Prompt Discovery**
 
-3. **Set up environment variables**
-```bash
-cp env.example .env.local
-```
+* User sees daily prompt via Vynk dApp or X bot.
 
-Edit `.env.local` with your API keys:
-```bash
-# Required for AI features
-GEMINI_API_KEY=your_gemini_api_key_here
+**Drawing & Submission**
 
-# Required for wallet connections
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id_here
+* Open canvas → sketch → connect wallet (Sepolia) → submit.
 
-# Set after contract deployment
-NEXT_PUBLIC_VYNK_NFT_CONTRACT=0x...
-```
+**AI Scoring**
 
-4. **Start the development server**
-```bash
-npm run dev
-```
+* Submission sent to `/api/score`.
+* Gemini Vision scores creativity, quality, and fit.
 
-5. **Open your browser**
-Navigate to [http://localhost:3000](http://localhost:3000)
+**Staking & Boosts**
 
-## 🎮 How to Use
+* User stakes tokens → amplify leaderboard ranking.
 
-1. **Connect Wallet**: Click "Connect Wallet" and select your preferred wallet
-2. **Get AI Prompt**: The system automatically generates a creative drawing prompt
-3. **Create Art**: Use the drawing canvas with various tools and colors
-4. **Submit for Scoring**: Click "Submit for AI Scoring" to get your artwork evaluated
-5. **View NFT Card**: See your artwork as an interactive 3D NFT card
-6. **Mint NFT**: Mint your artwork as an NFT on the blockchain
+**Leaderboard Competition**
 
-## 🔧 Development
+* Scores + staking multipliers decide top spots.
+* Spectators place bets on leaderboard outcomes.
 
-### Smart Contract Deployment
+**Minting & Rewards**
 
-1. **Set up Hardhat environment**
-```bash
-# Add to .env.local
-SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
-PRIVATE_KEY=your_private_key_here
-ETHERSCAN_API_KEY=your_etherscan_api_key_here
-```
+* Top-ranked art → minted as **NFTs** on Sepolia.
+* Rewards distributed from smart contracts.
 
-2. **Compile contracts**
-```bash
-npm run compile
-```
+**Social Amplification**
 
-3. **Deploy to Sepolia**
-```bash
-npm run deploy:sepolia
-```
+* X bot roasts/praises submissions.
+* Top art showcased on NFT marketplaces (OpenSea testnet).
 
-4. **Update contract address**
-Add the deployed contract address to your `.env.local`:
-```bash
-NEXT_PUBLIC_VYNK_NFT_CONTRACT=0x...
-```
+---
 
-### Available Scripts
+## 🛠 Tech Stack
 
-```bash
-# Development
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
+* **Frontend** → Next.js + Tailwind + Wagmi + RainbowKit
+* **AI** → Gemini Vision for scoring
+* **API** → Next.js Routes (`/api/score`, `/api/prompt`, `/api/tweet`)
+* **Smart Contracts** → Solidity (leaderboard, staking, prediction, minting)
+* **Storage** → IPFS + NFT metadata (ERC-721)
+* **Social Bot** → X (Twitter) API + AI roast generator
 
-# Smart Contracts
-npm run compile      # Compile contracts
-npm run deploy:sepolia  # Deploy to Sepolia
-npm run deploy:local    # Deploy to local network
-npm run verify       # Verify contract on Etherscan
-npm run test         # Run contract tests
-npm run node         # Start local Hardhat node
-```
+---
 
-## 🏗️ Architecture
-
-### Frontend
-- **Next.js 15** with App Router
-- **TypeScript** for type safety
-- **Tailwind CSS** for styling
-- **Radix UI** for accessible components
-- **React Spring** for animations
-
-### Blockchain
-- **Ethereum Sepolia** testnet
-- **Wagmi** for React hooks
-- **Viem** for low-level blockchain interactions
-- **Hardhat** for smart contract development
-
-### AI Integration
-- **Google Gemini 2.0 Flash** for AI features
-- **Fallback systems** for reliability
-- **Caching** for performance
-
-### Smart Contract
-- **ERC-721** standard NFT contract
-- **OpenZeppelin** security standards
-- **Gas optimized** for efficiency
-- **Metadata support** for AI scores
-
-## 📁 Project Structure
+## 📂 Repository Structure
 
 ```
 vynk/
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   │   ├── prompt/        # AI prompt generation
-│   │   └── score/         # AI scoring
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Main page
-├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   ├── drawing-canvas.tsx # Drawing interface
-│   ├── daily-prompt.tsx   # AI prompt display
-│   ├── nft-card.tsx      # 3D NFT card
-│   ├── wallet-connection.tsx # Wallet integration
-│   └── mint-nft-button.tsx # NFT minting
-├── contracts/            # Smart contracts
-│   └── VynkNFT.sol       # Main NFT contract
-├── lib/                  # Utility libraries
-│   ├── ai.ts            # AI integration
-│   ├── web3.ts          # Web3 configuration
-│   └── utils.ts         # General utilities
-├── scripts/             # Deployment scripts
-│   ├── deploy.ts        # Contract deployment
-│   └── verify.ts        # Contract verification
-└── hardhat.config.ts    # Hardhat configuration
+│── contracts/           # Solidity smart contracts (EVM)
+│   ├── Leaderboard.sol
+│   ├── Staking.sol
+│   ├── Prediction.sol
+│   └── NFTMint.sol
+│── frontend/            # Next.js frontend + API routes
+│   ├── pages/
+│   │   ├── index.tsx    # Main UI (drawing + wallet)
+│   │   └── api/
+│   │       ├── score.ts # AI scoring
+│   │       ├── prompt.ts# Daily prompt fetch
+│   │       └── tweet.ts # X bot
+│── docs/                # Whitepaper + diagrams
+└── README.md            # Project overview
 ```
 
-## 🔐 Security
+---
 
-- **OpenZeppelin** battle-tested contracts
-- **Type safety** with TypeScript
-- **Input validation** on all user inputs
-- **Secure wallet integration**
-- **Environment variable protection**
+## ⚙️ Setup & Deployment
 
-## 🌐 Supported Networks
+### **Prerequisites**
 
-- **Ethereum Sepolia** (Testnet) - Primary
-- **Ethereum Mainnet** (Production ready)
-- **Local Hardhat** (Development)
+* Node.js v18+
+* Hardhat / Foundry
+* Wallet (Metamask with Sepolia ETH)
+* API keys: Gemini Vision + X API
 
-## 🤝 Contributing
+### **Steps**
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+```bash
+# Clone Repo
+git clone https://github.com/DDgupta07/vynk.git
+cd vynk
 
+# Deploy Contracts to Sepolia
+cd contracts
+npx hardhat compile
+npx hardhat run scripts/deploy.js --network sepolia
 
-**Made with ❤️ by the Vynk Team**
+# Run Next.js App
+cd frontend
+npm install
+npm run dev
+```
 
-*Create, Score, Mint - The future of AI art is here!*
+---
+
+## 🚀 Hackathon MVP Scope
+
+✅ Daily Prompt Bot (X + dApp login)
+✅ In-browser Drawing Canvas (Next.js)
+✅ AI Scoring via Gemini Vision (`/api/score`)
+✅ Leaderboard Smart Contract (staking + rewards)
+✅ NFT Minting Flow (ERC-721 on Sepolia)
+
+---
+
+## 🏆 Hackathon Goal
+
+Deliver a working demo of **Vynk**:
+
+* Users draw → submit → stake → mint NFTs.
+* AI scoring + leaderboard contracts live on Sepolia.
+* X bot drives community engagement & virality.
