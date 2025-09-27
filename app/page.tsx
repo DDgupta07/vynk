@@ -8,13 +8,13 @@ import DailyPrompt from "@/components/daily-prompt"
 import MintNFTButton from "@/components/mint-nft-button"
 import ScoreDisplay from "@/components/score-display"
 import NFTCard from "@/components/nft-card"
+import { WalletConnect } from "@/components/wallet-connect"
 import { Sparkles } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 
 export default function Home() {
   const [currentPrompt, setCurrentPrompt] = useState("Loading creative prompt...")
   const [usedPrompt, setUsedPrompt] = useState<string | null>(null)
-  const [showWallet, setShowWallet] = useState(false)
   const [promptGeneratedAt, setPromptGeneratedAt] = useState<string | null>(null)
   const [promptExpired, setPromptExpired] = useState(false)
   const [scores, setScores] = useState({
@@ -124,20 +124,7 @@ export default function Home() {
             </div>
 
             <div className="flex justify-center md:justify-end">
-              {!showWallet ? (
-  <Button
-    variant="outline"
-    className="flex items-center gap-2 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700"
-    onClick={() => setShowWallet(true)}
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 19.5V18a2.25 2.25 0 00-2.25-2.25h-4.5A2.25 2.25 0 007.5 18v1.5M12 15.75V12m0 0a3 3 0 100-6 3 3 0 000 6zm0 0v3.75" /></svg>
-    Connect EVM Wallet
-  </Button>
-) : (
-  <span className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-sm font-mono border border-gray-300 dark:border-gray-600">
-    0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6
-  </span>
-)}
+              <WalletConnect />
             </div>
           </div>
         </header>

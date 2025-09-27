@@ -2,6 +2,7 @@ import type React from "react"
 import "@/app/globals.css"
 import { Space_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import { WalletProvider } from "@/components/wallet-provider"
 
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={spaceMono.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        <WalletProvider>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </WalletProvider>
       </body>
     </html>
   )
